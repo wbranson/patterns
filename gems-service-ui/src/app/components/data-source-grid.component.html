@@ -1,0 +1,62 @@
+<h2>Data Sources</h2>
+
+
+<div class="chip-filter">
+  <span
+    class="chip"
+    [class.active]="typeFilter === 'all'"
+    (click)="setTypeFilter('all')"
+  >
+    All
+  </span>
+  <span
+    class="chip"
+    [class.active]="typeFilter === 'data sync provider'"
+    (click)="setTypeFilter('data sync provider')"
+  >
+    Data Sync Provider
+  </span>
+  <span
+    class="chip"
+    [class.active]="typeFilter === 'data sink'"
+    (click)="setTypeFilter('data sink')"
+  >
+    Data Sink
+  </span>
+</div>
+
+<table class="data-table">
+  <thead>
+    <tr>
+      <th
+      (click)="sortByName()"
+      class="sortable"
+      [class.sorted]="activeSortColumn === 'name'"
+    >
+      Name
+      <span *ngIf="activeSortColumn === 'name' && sortAscending">↑</span>
+      <span *ngIf="activeSortColumn === 'name' && !sortAscending">↓</span>
+    </th>
+    
+    <th
+      (click)="sortByType()"
+      class="sortable"
+      [class.sorted]="activeSortColumn === 'type'"
+    >
+      Type
+      <span *ngIf="activeSortColumn === 'type' && typeSortAscending">↑</span>
+      <span *ngIf="activeSortColumn === 'type' && !typeSortAscending">↓</span>
+    </th>
+      <th>Enabled</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let ds of filteredDataSources">
+      <td>{{ ds.name }}</td>
+      <td>{{ ds.type }}</td>
+      <td class="centered">
+        <input type="checkbox" [(ngModel)]="ds.enabled" (change)="toggleEnabled(ds)" />
+      </td>
+    </tr>
+  </tbody>
+</table>
